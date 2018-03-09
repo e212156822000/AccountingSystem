@@ -1,0 +1,34 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - .:/Polaris/db
+  web:
+    build: .
+    command: rails server -p 3000 -b '0.0.0.0'
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/Polaris
+    links:
+      - db
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - network.host=0.0.0.0
+      - cluster.name=elasticsearch
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:  
+      - /usr/share/elasticsearch/data
