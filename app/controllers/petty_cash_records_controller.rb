@@ -1,0 +1,2 @@
+class PettyCashRecordsController < ApplicationController
+end

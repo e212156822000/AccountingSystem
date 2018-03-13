@@ -3,12 +3,22 @@
   <head>
     <title>PolarisSystem</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
 
   <body>
-    <%= yield %>
+  	<ul class="topnav">
+  	  <li><a id="openNav" href="#news">☰</a></li>
+	  <li><a class="active" href="#home">Home</a></li>
+	  <li><a href="#news">News</a></li>
+	  <li><a href="#contact">Contact</a></li>
+	  <li class="right"><a href="#about">Login</a></li>
+	</ul>
+	<%= render 'layouts/sidebar' %>
+	<div class="w3-container">
+    	<%= yield %>
+    </div>
   </body>
 </html>

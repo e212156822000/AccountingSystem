@@ -3,14 +3,14 @@ services:
   db:
     image: postgres
     volumes:
-      - .:/Polaris/db
+      - .:/PolarisSystem/db
   web:
     build: .
     command: rails server -p 3000 -b '0.0.0.0'
     ports:
       - "3000:3000"
     volumes:
-      - .:/Polaris
+      - .:/PolarisSystem
     links:
       - db
       - elasticsearch
@@ -32,3 +32,6 @@ services:
         hard: -1
     volumes:  
       - /usr/share/elasticsearch/data
+#for sync container and host
+volumes:
+  .:

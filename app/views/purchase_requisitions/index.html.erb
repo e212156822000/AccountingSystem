@@ -1,0 +1,80 @@
+
+<%= form_for :term, url: purchase_requisitions_path, method: :get do |form| %>
+  <div id="search_block">
+    <%= text_field_tag :term, params[:term] ,:id => 'search_bar' ,  :placeholder => '請輸入關鍵字' %>
+    <%= submit_tag "Search", name: nil %>
+  </div>
+<% end %>
+
+<div>
+  <table id="purchase" class="table table-hover" style="white-space: nowrap">
+	  <thead>
+	    <tr>
+	      <th scope="col">
+	      	<input type="checkbox" class="check" id="checkAll">
+	      </th>
+	      <th scope="col">項次</th>
+	      <th scope="col">需求日期</th>
+	      <th scope="col">廠商</th>
+	      <th scope="col">品名規格</th>
+	      <th scope="col">用途</th>
+	      <th scope="col">單位</th>
+	      <th scope="col">單價</th>
+	      <th scope="col">數量</th>
+	      <th scope="col">金額</th>
+	      <th scope="col">收款人</th>
+	      <th scope="col">處理進度</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td scope="row">
+	      	<input type="checkbox" class="check">
+	      </td>
+	      <td>1</td>
+	      <td>2019.02.19</td>
+	      <td>FedEx</td>
+	      <td>運費</td>
+	      <td>寄送晶片</td>
+	      <td>次</td>
+	      <td>2980</td>
+	      <td>1</td>
+	      <td>2980</td>
+	      <td>Ellen</td>
+	      <td>完成</td>
+	    </tr>
+	    <tr>
+	      <td scope="row">
+	      	<input type="checkbox" class="check">
+	      </td>
+	      <td>2</td>
+	      <td>2019.02.21</td>
+	      <td>一中影印</td>
+	      <td>影印費</td>
+	      <td>技術文件</td>
+	      <td>次</td>
+	      <td>230</td>
+	      <td>1</td>
+	      <td>230</td>
+	      <td>依玲</td>
+	      <td>完成</td>
+	    </tr>
+	    <tr>
+	      <td scope="row">
+	      	<input type="checkbox" class="check">
+	      </td>
+	      <td>3</td>
+	      <td>2019.3.1</td>
+	      <td>運費</td>
+	      <td>運費</td>
+	      <td>寄送晶片</td>
+	      <td>次</td>
+	      <td>2980</td>
+	      <td>1</td>
+	      <td>2980</td>
+	      <td>Ellen</td>
+	      <td>完成</td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
