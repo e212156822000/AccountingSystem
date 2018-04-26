@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require_tree .
 
-
 $(document).ready(function(){
 	$(document).on("click", "#openNav" , function() {
 		event.preventDefault();
@@ -32,4 +31,3 @@ $(document).ready(function(){
 	    }
 	});
 });
-
