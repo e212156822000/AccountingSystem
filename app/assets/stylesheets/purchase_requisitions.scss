@@ -1,28 +1,19 @@
 // Place all the styles related to the purchase_requistions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 h2 {
     text-align: center;
     color: #b6e61e;
 }
-.table thead{
+#purchase thead{
 	background-color: #456797;
 	color: white;
 }
-.table tbody{
+#purchase tbody{
 	background-color: #E2F5F9;
 }
 .table tbody tr:hover {background-color: black;}
 #purchase {
 	margin:0 auto;
 	width: 80%;
-}
-#search_bar {
-	width: 70%;
-}
-#search_block {
-	padding: 40px 0px 40px 20px;
-	margin: auto;
-    width: 50%;
 }

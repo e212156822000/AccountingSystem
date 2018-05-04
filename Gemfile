@@ -36,7 +36,8 @@ gem 'bootstrap-sass'
 
 # fulltext search engine
 gem 'searchkick'
-
+# form helper
+gem 'simple_form'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

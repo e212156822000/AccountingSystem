@@ -1,0 +1,59 @@
+<%= form_for :term, url: petty_cash_records_path, method: :get do |form| %>
+  <div id="search_block">
+    <%= text_field_tag :term, params[:term] ,:id => 'search_bar' ,  :placeholder => '請輸入關鍵字' %>
+    <%= submit_tag "Search", name: nil %>
+  </div>
+<% end %>
+
+<div>
+  <table id="petty_cash" class="table table-hover" style="white-space: nowrap">
+	  <thead>
+	    <tr>
+	      <th scope="col">
+	      	<input type="checkbox" class="check" id="checkAll">
+	      </th>
+	      <th scope="col">項次</th>
+	      <th scope="col">零用金收支項目</th>
+	      <th scope="col">日期</th>
+	      <th scope="col">收入</th>
+	      <th scope="col">支出</th>
+	      <th scope="col">剩餘金額</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td scope="row">
+	      	<input type="checkbox" class="check">
+	      </td>
+	      <td>1</td>
+	      <td>運費</td>
+	      <td>2019.02.31</td>
+	      <td></td>
+	      <td>120</td>
+	      <td></td>
+	    </tr>
+	    <tr>
+	      <td scope="row">
+	      	<input type="checkbox" class="check">
+	      </td>
+	      <td>2</td>
+	      <td>影印費</td>
+	      <td>2019.02.21</td>
+	      <td></td>
+	      <td>230</td>
+	      <td></td>
+	    </tr>
+	    <tr>
+	      <td scope="row">
+	      	<input type="checkbox" class="check">
+	      </td>
+	      <td>3</td>
+	      <td>衛生紙</td>
+	      <td>2019.3.1</td>
+	      <td></td>
+	      <td>299</td>
+	      <td></td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>

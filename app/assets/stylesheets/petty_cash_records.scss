@@ -1,3 +1,23 @@
 // Place all the styles related to the petty_cash_records controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+h2 {
+    text-align: center;
+    color: #b6e61e;
+}
+#petty_cash thead{
+	background-color: #ff73b3;
+	color: white;
+}
+#petty_cash tbody{
+	background-color: #ffd0ea;
+}
+.table tbody tr:hover {background-color: black;}
+#petty_cash {
+	margin:0 auto;
+	width: 80%;
+}
+#petty_cash {
+	margin:0 auto;
+	width: 80%;	
+}
