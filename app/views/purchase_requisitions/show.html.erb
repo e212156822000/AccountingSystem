@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>申請日期:</strong>
+  <%= @purchase_requisition.created_at %>
+</p>
+
+<p>
+  <strong>廠商:</strong>
+</p>
+
+<p>
+  <strong>品名與規格:</strong>
+  <%= @purchase_requisition.name %>
+</p>
+
+<p>
+  <strong>用途說明:</strong>
+  <%= @purchase_requisition.description %>
+</p>
+
+<p>
+  <strong>單位:</strong>
+  <%= @purchase_requisition.unit %>
+</p>
+
+<p>
+  <strong>單價:</strong>
+  <%= @purchase_requisition.unit_price %>
+</p>
+
+
+<p>
+  <strong>數量:</strong>
+  <%= @purchase_requisition.amount %>
+</p>
+
+<p>
+  <strong>金額:</strong>
+  <%= @purchase_requisition.total_price %>
+</p>
+
+<p>
+  <strong>報價單:</strong>
+  <%= @purchase_requisition.purchase_requisition_files %>
+</p>
+
+<p>
+  <strong>申請人:</strong>
+  <%= @employee.name %>
+</p>
+
+<p>
+  <strong>記錄人:</strong>
+  <%= @purchase_requisition.created_at %>
+</p>
+<%= link_to 'Back', purchase_requisitions_path %>

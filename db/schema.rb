@@ -10,15 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410012347) do
+ActiveRecord::Schema.define(version: 20180621091743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "people", force: :cascade do |t|
+  create_table "companies", force: :cascade do |t|
     t.string "name"
-    t.text "bio"
-    t.date "birthday"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "job_title"
+    t.string "username"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "purchase_requisitions", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "unit"
+    t.float "unit_price"
+    t.float "amount"
+    t.float "total_price"
+    t.string "purchase_requisition_files"
+    t.date "payment_due_date"
+    t.integer "payment_term"
+    t.integer "payment_condition"
+    t.integer "process_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "remit_info_id"
+  end
+
+  create_table "remit_infos", force: :cascade do |t|
+    t.string "bank_name"
+    t.integer "bank_code"
+    t.integer "branch_bank_code"
+    t.integer "account_number"
+    t.integer "payee_id"
+    t.string "payee_type"
+  end
+
+  create_table "requisition_employees", force: :cascade do |t|
+    t.integer "purchase_requisition_id"
+    t.integer "employee_id"
+    t.integer "employee_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

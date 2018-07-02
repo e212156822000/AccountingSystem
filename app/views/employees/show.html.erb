@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @employee.name %>
+</p>
+
+<p>
+  <strong>Job Title:</strong>
+  <%= @employee.job_title %>
+</p>
+
+
+
+<%= render partial: "remit_infos/show" ,locals: {payee: @employee} %>
+<%= render partial: "remit_infos/form" , locals: {payee: @employee} %>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

@@ -12,13 +12,13 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/RebuildPostgres
+      - .:/AccountingSystem
     links:
       - elasticsearch
     depends_on:
       - db
     environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_URL= http://elasticsearch:9200
   elasticsearch:
     image: elasticsearch
     ports:

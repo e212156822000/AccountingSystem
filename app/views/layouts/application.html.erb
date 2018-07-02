@@ -3,7 +3,7 @@
   <head>
     <title>PolarisSystem</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
@@ -18,6 +18,7 @@
 	</ul>
 	<%= render 'layouts/sidebar' %>
 	<div class="w3-container">
+      <p id="notice"><%= notice %></p>
     	<%= yield %>
     </div>
   </body>

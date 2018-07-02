@@ -1,0 +1,9 @@
+<h3>RemitInfo</h3>
+<% payee.remit_infos.each do |remit_info| %>
+    <ul>
+	    <li><%= remit_info.bank_name %></li>
+	    <li><%= remit_info.bank_code %></li>
+	    <li><%= remit_info.branch_bank_code %></li>
+	    <li><%= remit_info.account_number %></li>
+	</ul>
+<% end %>

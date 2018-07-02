@@ -6,7 +6,7 @@
 <% end %>
 
 <div>
-  <table id="purchase" class="table table-hover" style="white-space: nowrap">
+  <table id="purchase" class="table table-hover">
 	  <thead>
 	    <tr>
 	      <th scope="col">
@@ -26,54 +26,24 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr>
-	      <td scope="row">
-	      	<input type="checkbox" class="check">
-	      </td>
-	      <td>1</td>
-	      <td>2019.02.19</td>
-	      <td>FedEx</td>
-	      <td>運費</td>
-	      <td>寄送晶片</td>
-	      <td>次</td>
-	      <td>2980</td>
-	      <td>1</td>
-	      <td>2980</td>
-	      <td>Ellen</td>
-	      <td>完成</td>
-	    </tr>
-	    <tr>
-	      <td scope="row">
-	      	<input type="checkbox" class="check">
-	      </td>
-	      <td>2</td>
-	      <td>2019.02.21</td>
-	      <td>一中影印</td>
-	      <td>影印費</td>
-	      <td>技術文件</td>
-	      <td>次</td>
-	      <td>230</td>
-	      <td>1</td>
-	      <td>230</td>
-	      <td>依玲</td>
-	      <td>完成</td>
-	    </tr>
-	    <tr>
-	      <td scope="row">
-	      	<input type="checkbox" class="check">
-	      </td>
-	      <td>3</td>
-	      <td>2019.3.1</td>
-	      <td>運費</td>
-	      <td>運費</td>
-	      <td>寄送晶片</td>
-	      <td>次</td>
-	      <td>2980</td>
-	      <td>1</td>
-	      <td>2980</td>
-	      <td>Ellen</td>
-	      <td>完成</td>
-	    </tr>
+	  	<% @purchase_requisitions.each do |purchase_requisition| %>
+		    <tr>
+		      <td scope="row">
+		      	<input type="checkbox" class="check">
+		      </td>
+		      <td><%= link_to purchase_requisition.id, purchase_requisition %></td>
+		      <td><%= purchase_requisition.created_at.to_date %></td>
+		      <td>公司名</td>
+		      <td><%= purchase_requisition.name %></td>
+		      <td><%= purchase_requisition.description %></td>
+		      <td><%= purchase_requisition.unit %></td>
+		      <td><%= purchase_requisition.unit_price %></td>
+		      <td><%= purchase_requisition.amount %></td>
+		      <td><%= purchase_requisition.total_price %></td>
+		      <td>Ellen</td>
+		      <td>完成</td>
+		    </tr>
+		<% end %>
 	  </tbody>
 	</table>
 </div>

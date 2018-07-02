@@ -1,0 +1,21 @@
+<div>
+<%= form_for [payee, RemitInfo.new] do |f| %>
+	<div class="field">
+    	<%= f.label :bank_name %>
+    	<%= f.text_field :bank_name %>
+  	</div>
+  	<div class="field">
+    	<%= f.label :bank_code %>
+    	<%= f.text_field :bank_code %>
+  	</div>
+  	<div class="field">
+    	<%= f.label :branch_bank_code %>
+    	<%= f.text_field :branch_bank_code %>
+  	</div>
+  	<div class="field">
+    	<%= f.label :account_number %>
+    	<%= f.text_field :account_number %>
+  	</div>
+	<%= f.submit class: "btn btn-primary" %> 
+<% end %> 
+</div>

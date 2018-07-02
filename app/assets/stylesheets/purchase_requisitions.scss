@@ -17,3 +17,70 @@ h2 {
 	margin:0 auto;
 	width: 80%;
 }
+
+
+.warp{
+  margin: 300;
+  padding: 0;
+}
+.content { 
+  margin: 0 auto;
+  max-width: 100%;
+  font-size: 0; 
+}
+.content .left_div , .content .right_div  { 
+   display: inline-block;
+   font-size: 14px;
+   line-height: 200px;
+   text-align:center;
+}
+.content 
+{  
+  margin-top:20px;
+}
+.left_div {
+	float:left;
+	width:49%;
+}
+.right_div{
+	float:right;
+	width:50%;
+}
+
+
+
+
+
+#payee_form {
+	table-layout:fixed;
+}
+#payee_form td, #payee_form th{
+	border: 1px solid black;
+}
+
+#payment_form {
+	table-layout:fixed;
+}
+#payment_form td, #payment_form th{
+	border: 1px solid black;
+}
+
+
+#purchase_form {
+	table-layout:fixed;
+	margin:0 auto;
+	width: 100%;
+}
+#purchase_form td, #purchase_form th{
+	border: 1px solid black;
+}
+
+form {
+	justify-content: space-between;
+}
+form table input{
+	width : 100%;
+}
+.btn_send{
+	width : 100%;
+}

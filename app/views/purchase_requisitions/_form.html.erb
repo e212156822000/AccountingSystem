@@ -1,0 +1,40 @@
+<%= form_with(model: purchase_requisition, local: true) do |f| %>
+  <% if purchase_requisition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(purchase_requisition.errors.count, "error") %> prohibited this purchase_requisition from being saved:</h2>
+
+      <ul>
+      <% purchase_requisition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :unit %>
+  </div>
+
+  <div class="field">
+    <%= f.text_area :unit_price %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="field">
+  <%= f.file_field :total_price %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
