@@ -40,7 +40,9 @@
 		      <td><%= purchase_requisition.unit_price %></td>
 		      <td><%= purchase_requisition.amount %></td>
 		      <td><%= purchase_requisition.total_price %></td>
-		      <td>Ellen</td>
+		      <% @remit_info = RemitInfo.find(purchase_requisition.remit_info_id) %>
+		      <% @payee = Employee.find(@remit_info.payee_id) %>
+		      <td><%= @payee.name %></td>
 		      <td>完成</td>
 		    </tr>
 		<% end %>

@@ -2,7 +2,7 @@
 
 <p>
   <strong>申請日期:</strong>
-  <%= @purchase_requisition.created_at %>
+  <%= @purchase_requisition.created_at.to_date %>
 </p>
 
 <p>
@@ -47,11 +47,26 @@
 
 <p>
   <strong>申請人:</strong>
-  <%= @employee.name %>
+  <%= @payee.name %>
 </p>
 
 <p>
   <strong>記錄人:</strong>
-  <%= @purchase_requisition.created_at %>
+  <% @purchase_requisition.employees.each do |employee| %>
+    <ul>
+      <li><%= employee.bank_name %></li>
+   </ul>
+  <% end %>
+<!--   <% if !@purchase_requisition.requisition_employees.employee_id.blank? %>
+    <% for employee in @purchase_requisition.requisition_employees.employee_id %>
+      <% if employee.name != nil %>
+        <li> <%= employee.name %>
+      <% end %>
+    <% end %>
+  <% else %>
+    No Events created so far.
+  <% end %>
+ -->
 </p>
+
 <%= link_to 'Back', purchase_requisitions_path %>

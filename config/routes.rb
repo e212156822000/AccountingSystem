@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :purchase_requisitions
   resources :petty_cash_records
-  resources :requisition_employees
   resources :employees do
   	resources :remit_infos, module: :employees
   end

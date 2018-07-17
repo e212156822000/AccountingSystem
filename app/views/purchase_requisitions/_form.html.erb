@@ -1,40 +1,138 @@
-<%= form_with(model: purchase_requisition, local: true) do |f| %>
-  <% if purchase_requisition.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(purchase_requisition.errors.count, "error") %> prohibited this purchase_requisition from being saved:</h2>
-
-      <ul>
-      <% purchase_requisition.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="wrap">
+  <h2>極星光電股份有限公司</h2>
+  <h2>申請單 - 請購/請款單</h2>
+  <br>
+  <%= simple_form_for @purchase_requisition do |f| %>
+    <div class="upper">
+      <h4>基本資料：</h4>
+      <table id="purchase_form" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">項次</th>
+            <th scope="col">申請日期</th>
+            <th scope="col">廠商</th>
+            <th scope="col">品名與規格</th>
+            <th scope="col">用途說明</th>
+            <th scope="col">單位</th>
+            <th scope="col">單價</th>
+            <th scope="col">數量</th>
+            <th scope="col">金額</th>
+            <th scope="col">報價單</th>
+            <th scope="col">申請人</th>
+            <th scope="col">記錄人</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <%= t = Time.now
+                t.strftime("%Y/%m/%d") %>
+            </td>
+            <td>
+              <%= text_field_tag :company_name, params[:company_name] ,:id=>"company_name", :placeholder => '請輸入廠商' %>
+            </td>
+            <td>
+              <%= f.input :name ,label: false %>
+            </td>
+            <td>
+              <%= f.input :description ,label: false%>
+            </td>
+            <td>
+              <%= f.input :unit,label: false %>
+            </td>
+            <td>
+              <%= f.input :unit_price,label: false %>
+            </td>
+            <td>
+              <%= f.input :amount,label: false %>
+            </td>
+            <td>
+              <%= f.input :total_price ,label: false%>
+            </td>
+            <td>
+              <%= f.input :purchase_requisition_files ,label: false%>
+            </td>
+            <td>
+              <%= text_field_tag :payee_name, params[:payee_name] ,:id=>"payee_name", :placeholder => '請輸入名字' %>
+            </td>
+            <td>
+              <%= text_field_tag :recorder_name, params[:recorder_name] ,:id=>"recorder_name", :placeholder => '請輸入名字' %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <div class="content">
+      <h4>受款對象的匯款資料：</h4>
+      <%= f.fields_for :requisition_employee do |u| %>
+        <%= u.fields_for :employee do |p| %>
+          <div class="left_div">
+            <table id="payee_form" class="table table-hover form">
+              <thead>
+                <tr>
+                  <th scope="col">廠商/員工姓名</th>
+                  <th scope="col">帳戶名稱</th>
+                  <th scope="col">銀行代碼</th>
+                  <th scope="col">分行名稱</th>
+                  <th scope="col">帳號</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <%= p.input :name,label: false %>
+                  </td>
+                  <td>
+                    <%= p.input :bank_name ,label: false%>
+                  </td>
+                  <td>
+                    <%= p.input :bank_code,label: false %>
+                  </td>
+                  <td>
+                    <%= p.input :branch_bank_code ,label: false%>
+                  </td>
+                  <td>
+                    <%= p.input :account_number ,label: false%>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      <% end %>
+          <div class="right_div">
+            <table id="payment_form" class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">付款期限</th>
+                  <th scope="col">付款方式</th>
+                  <th scope="col">運稅條件</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <%= f.input :payment_due_date,label: false %>
+                  </td>
+                  <td>
+                    <%= f.input :payment_term ,label: false%>
+                  </td>
+                  <td>
+                    <%= f.input :payment_condition,label: false %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <%= hidden_field_tag "requisition_employee[employee_id][]", nil %>
+              <% Employee.all.each do |employee| %>
+                <%= check_box_tag "requisition_employee[employee_id][]" , employee.id %>
+                <%= employee.name %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <%= f.button :submit , :class => 'btn_send' %>
   <% end %>
-  <div class="field">
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= f.text_field :unit %>
-  </div>
-
-  <div class="field">
-    <%= f.text_area :unit_price %>
-  </div>
-
-  <div class="field">
-    <%= f.text_field :amount %>
-  </div>
-
-  <div class="field">
-  <%= f.file_field :total_price %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
