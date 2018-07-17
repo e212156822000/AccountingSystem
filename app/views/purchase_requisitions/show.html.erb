@@ -7,6 +7,7 @@
 
 <p>
   <strong>廠商:</strong>
+  <%= @company.name %>
 </p>
 
 <p>
@@ -52,21 +53,7 @@
 
 <p>
   <strong>記錄人:</strong>
-  <% @purchase_requisition.employees.each do |employee| %>
-    <ul>
-      <li><%= employee.bank_name %></li>
-   </ul>
-  <% end %>
-<!--   <% if !@purchase_requisition.requisition_employees.employee_id.blank? %>
-    <% for employee in @purchase_requisition.requisition_employees.employee_id %>
-      <% if employee.name != nil %>
-        <li> <%= employee.name %>
-      <% end %>
-    <% end %>
-  <% else %>
-    No Events created so far.
-  <% end %>
- -->
+  <%= @recorder.name %>
 </p>
 
 <%= link_to 'Back', purchase_requisitions_path %>

@@ -65,8 +65,7 @@
     </div>
     <div class="content">
       <h4>受款對象的匯款資料：</h4>
-      <%= f.fields_for :requisition_employee do |u| %>
-        <%= u.fields_for :employee do |p| %>
+      <%= f.fields_for :remit_infos do |p| %>
           <div class="left_div">
             <table id="payee_form" class="table table-hover form">
               <thead>
@@ -99,7 +98,6 @@
               </tbody>
             </table>
           </div>
-        <% end %>
       <% end %>
           <div class="right_div">
             <table id="payment_form" class="table table-hover">
@@ -125,9 +123,9 @@
               </tbody>
             </table>
             <div>
-              <%= hidden_field_tag "requisition_employee[employee_id][]", nil %>
+              <%= hidden_field_tag "purchase_requisition[recorder_id]" %>
               <% Employee.all.each do |employee| %>
-                <%= check_box_tag "requisition_employee[employee_id][]" , employee.id %>
+                <%= check_box_tag "purchase_requisition[recorder_id]" , employee.id %>
                 <%= employee.name %>
               <% end %>
             </div>
