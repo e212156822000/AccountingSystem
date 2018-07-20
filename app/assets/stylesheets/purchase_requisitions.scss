@@ -31,7 +31,6 @@ h2 {
 .content .left_div , .content .right_div  { 
    display: inline-block;
    font-size: 14px;
-   line-height: 200px;
    text-align:center;
 }
 .content 
@@ -46,8 +45,13 @@ h2 {
 	float:right;
 	width:50%;
 }
+.below_left_div{
+	float:right;
+}
 
-
+.below_right_div{
+	padding-bottom:26px;
+}
 
 
 

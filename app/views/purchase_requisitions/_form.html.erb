@@ -18,7 +18,6 @@
             <th scope="col">數量</th>
             <th scope="col">金額</th>
             <th scope="col">報價單</th>
-            <th scope="col">申請人</th>
             <th scope="col">記錄人</th>
           </tr>
         </thead>
@@ -30,7 +29,7 @@
                 t.strftime("%Y/%m/%d") %>
             </td>
             <td>
-              <%= text_field_tag :company_name, params[:company_name] ,:id=>"company_name", :placeholder => '請輸入廠商' %>
+              <%= text_field_tag :company_name, params[:company_name] ,:id=>"company_name", :placeholder => '廠商名' %>
             </td>
             <td>
               <%= f.input :name ,label: false %>
@@ -54,19 +53,25 @@
               <%= f.input :purchase_requisition_files ,label: false%>
             </td>
             <td>
-              <%= text_field_tag :payee_name, params[:payee_name] ,:id=>"payee_name", :placeholder => '請輸入名字' %>
-            </td>
-            <td>
-              <%= text_field_tag :recorder_name, params[:recorder_name] ,:id=>"recorder_name", :placeholder => '請輸入名字' %>
+              <select id="recorder_id" name="recorder_id">
+                <% Employee.all.each do |employee| %>
+                  <option value="<%= employee.id %>"><%= employee.name %></option>
+                <% end %>
+              </select>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="content">
-      <h4>受款對象的匯款資料：</h4>
+      <h4 id="next_to_checkbox">受款對象的匯款資料：</h4>
       <%= f.fields_for :remit_infos do |p| %>
           <div class="left_div">
+            <div class="below_left_div">
+              <input type='hidden' name='payee_type' value='Company' >
+              <%= check_box_tag(:payee_type, "Employee") %>
+              <%= label_tag(:payee_employee, "同記錄人") %>
+            </div>
             <table id="payee_form" class="table table-hover form">
               <thead>
                 <tr>
@@ -100,6 +105,9 @@
           </div>
       <% end %>
           <div class="right_div">
+            <div class="below_right_div">
+              <!--對齊左邊的div使用-->
+            </div>
             <table id="payment_form" class="table table-hover">
               <thead>
                 <tr>
@@ -114,21 +122,21 @@
                     <%= f.input :payment_due_date,label: false %>
                   </td>
                   <td>
-                    <%= f.input :payment_term ,label: false%>
+                    <%= f.input :payment_term, collection: [
+                      ['事先付款', '0'],
+                      ['貨到付款', '1']],
+                      label: false %>
                   </td>
                   <td>
-                    <%= f.input :payment_condition,label: false %>
+                    <%= f.input :payment_condition, collection: [
+                      ['未稅', '0'],
+                      ['含稅', '1'],
+                      ['含稅+運費', '2']],
+                      label: false %> 
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div>
-              <%= hidden_field_tag "purchase_requisition[recorder_id]" %>
-              <% Employee.all.each do |employee| %>
-                <%= check_box_tag "purchase_requisition[recorder_id]" , employee.id %>
-                <%= employee.name %>
-              <% end %>
-            </div>
           </div>
         </div>
       <%= f.button :submit , :class => 'btn_send' %>

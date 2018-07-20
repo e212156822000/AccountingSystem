@@ -38,6 +38,8 @@ gem 'bootstrap-sass'
 gem 'searchkick'
 # form helper
 gem 'simple_form'
+# dropdown list helper
+gem 'chosen-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

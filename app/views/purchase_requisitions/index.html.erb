@@ -41,8 +41,9 @@
 		      <td><%= purchase_requisition.unit_price %></td>
 		      <td><%= purchase_requisition.amount %></td>
 		      <td><%= purchase_requisition.total_price %></td>
+		      <!--收款人不一定是Employee，要考慮多型關聯進去-->
 		      <% @remit_info = RemitInfo.find(purchase_requisition.remit_info_id) %>
-		      <% @payee = Employee.find(@remit_info.payee_id) %>
+		      <% @payee = set_payee_by_payee_id(@remit_info.payee_id,@remit_info.payee_type) %>
 		      <td><%= @payee.name %></td>
 		      <td>完成</td>
 		    </tr>

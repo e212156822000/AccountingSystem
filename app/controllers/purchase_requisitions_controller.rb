@@ -3,16 +3,14 @@ class PurchaseRequisitionsController < ApplicationController
 
 	def index
 		@purchase_requisitions = PurchaseRequisition.all
-		#@employees = Employee.all(:all)
 	end
 	# GET /purchase_requisition/1
 	# GET /purchase_requisition/1.json
 	def show
 		@remit_info = RemitInfo.find(@purchase_requisition.remit_info_id)
-		@payee = Employee.find(@remit_info.payee_id)
+		@payee = set_payee_by_payee_id(@remit_info.payee_id,@remit_info.payee_type)
 		@recorder = Employee.find(@purchase_requisition.recorder_id)
 		@company = Company.find(@purchase_requisition.company_id)
-		# @employees = @purchase_requisition.employees
 	end
 
 	def update
@@ -21,14 +19,15 @@ class PurchaseRequisitionsController < ApplicationController
 		@purchase_requisition = PurchaseRequisition.new
 	end
 	def create
-		if params[:recorder_name].present? && params[:payee_name].present?
+		if params[:recorder_id].present? && 
+		   params[:purchase_requisition][:remit_infos][:name].present?
 			# 現在是用string直接去找東西，找不到會爆掉，之後要改成view可以直接傳id過來
-			@recorder = Employee.find_by_name(params[:recorder_name])
-			@payee = Employee.find_by_name(params[:payee_name])
+			set_payee_by_payee_type(params[:purchase_requisition][:remit_infos][:name],params[:payee_type])
+			#@recorder = Employee.find(params[:recorder_id])
 			@company = Company.find_by_name(params[:company_name])
-			if @recorder.present? && @payee.present? && @company.present?
+			if @payee.present? && @company.present?
 				@remit_info = RemitInfo.find_by_payee_id(@payee.id)
-				params[:purchase_requisition][:recorder_id] = @recorder.id
+				params[:purchase_requisition][:recorder_id] = params[:recorder_id]
 				params[:purchase_requisition][:company_id] = @company.id
 				if @remit_info.present?
 					@purchase_requisition = @remit_info.purchase_requisitions.build(purchase_requisitions_params)
@@ -37,7 +36,7 @@ class PurchaseRequisitionsController < ApplicationController
 				      	format.html {
 			         	   format.html { redirect_to @purchase_requisition, notice: ' was successfully created.' }
 			        	}
-			        	redirect_to purchase_requisitions_path, notice: @purchase_requisition.id.to_s + 'Data was successfully created.' + @recorder.id.to_s
+			        	redirect_to purchase_requisitions_path, notice: @purchase_requisition.id.to_s + 'Data was successfully created.' + params[:recorder_id].to_s
 			      	else
 			      		flash[:notice] = 'Not saving!'  + @purchase_requisition.errors.full_messages.to_s
 			        	format.html { render :new }
@@ -48,7 +47,7 @@ class PurchaseRequisitionsController < ApplicationController
 	    			flash[:notice] = 'No remit_info!'
 	    		end
 	    	else
-    			flash[:notice] = 'no Employees or no Company.'
+    			flash[:notice] = 'no Employees or no Company. ' + params[:purchase_requisition][:remit_infos][:name]
 	    	end
 		else
 			flash[:notice] = 'No filling 申請人/記錄人.'
@@ -73,12 +72,12 @@ class PurchaseRequisitionsController < ApplicationController
 	      		:total_price, 
 	      		:purchase_requisition_files,
 	      		:requisition_employees,
-	      		:remit_info_id,
 	      		:recorder_id,
+	      		:remit_info_id,
 	      		:payment_due_date, 
 	      		:payment_term,
 	      		:payment_condition,
-	      		employees_attributes: [:name, :job_title]
+	      		remit_infos_attributes: [:name, :bank_name, :bank_code, :branch_bank_code, :account_number]
 	      )
 	    end
 	    def employees_params
@@ -87,4 +86,20 @@ class PurchaseRequisitionsController < ApplicationController
 	    def requisitions_employees_params
 	    	params.require(:requisition_employee).permit(:purchase_requisition_id,:employee_id, :employee_type)
 	    end
+	    def set_payee_by_payee_type(payee_name,payee_type)
+	    	if(payee_type == "Employee")
+				@payee = Employee.find_by_name(payee_name)
+	    	else
+	    		@payee = Company.find_by_name(payee_name)
+	    	end
+	    end
+	    def set_payee_by_payee_id(payee_id,payee_type)
+	    	if(payee_type == "Employee")
+				payee = Employee.find(payee_id)
+	    	else
+	    		payee = Company.find(payee_id)
+	    	end
+	    	return payee
+	    end
+	    helper_method :set_payee_by_payee_id
 end

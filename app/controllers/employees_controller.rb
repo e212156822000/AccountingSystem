@@ -24,9 +24,9 @@ class EmployeesController < ApplicationController
   # POST /employees
   # POST /employees.json
   def create
-    @purchase_requisition = PurchaseRequisition.find(params[:id])
-    @employee = @purchase_requisition.requisition_employees.build.employees
-
+    # @purchase_requisition = PurchaseRequisition.find(params[:id])
+    # @employee = @purchase_requisition.requisition_employees.build.employees
+    @employee = Employee.new(employee_params)
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
