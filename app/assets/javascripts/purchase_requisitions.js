@@ -1,6 +1,6 @@
 $(document).ready(function(){
-	//公司、受款人等的下拉選單
-	$('#recorder_id').chosen({width: "95%"});
+	//公司、受款人的下拉選單
+	$('#recorder_id, #company_id' ).chosen({width: "100%"});
 	//全選、取消全選
 	$("#checkAll").click(function () {
 	    $(".check").prop('checked', $(this).prop('checked'));
@@ -13,53 +13,38 @@ $(document).ready(function(){
 	$("#purchase_requisition_amount").blur(function(){
 		setTotalPrice();
 	});
-	//剛填完公司名稱時，就設定匯款對象為公司
-	$("#company_name").blur(function(){
-		$("#purchase_requisition_remit_infos_name").val($("#company_name").val())
+	//最一開始就設定匯款對象為公司
+	$("#purchase_requisition_remit_infos_name").attr("value", $("#company_id option:selected").text());
+	//有改動公司名稱時，就設定匯款對象為公司
+	$("#company_id").change(function(){
+		$("#purchase_requisition_remit_infos_name").attr("value" , $("#company_id option:selected").text())
 	});
 	//勾選“同記錄人”時，變換值
 	$(document).on("click", "#payee_type" , function() {
 		var url = "";
 		if($("#payee_type").is(":checked")){
 			$("#purchase_requisition_remit_infos_name").val($("#recorder_id option:selected").text())
-			//url = "/employees/"+
+			url = "/employees/"+ $("#recorder_id option:selected").val(); // employees/:id
 		}else{
-			$("#purchase_requisition_remit_infos_name").val($("#company_name").val())
+			$("#purchase_requisition_remit_infos_name").val($("#company_id option:selected").text())
+			url = "/companies/"+ $("#company_id option:selected").val(); // companies/:id
 		}
-		//抓取對應的資料，等前端可傳payee.id後開工！
-		/*
-		event.preventDefault();
+		//去url中，抓取對應的資料
 		$.ajax({
-			url: "/employees/"+ id,
-			type: "GET",
+			url: url,
+			method: "GET",
+			dataType: "json",// url.json 
 			data:{ 
-				id: $(this).parent().parent().parent().parent().next(".reply_board").prev(".board").attr('id') , edit_comment: $("#edit_textarea_"+ $(this).parent().parent().parent().parent().next(".reply_board").prev(".board").attr('id')).val() 
 			},
 			success: function(msg){
-				var result = $.parseJSON(msg);
-				$("#post_text_"+result[0]).html(result[1]);
-			}
-		});
-		*/
-	});
-	//勾選“同紀錄人”時，抓取對應的資料
-	/*
-	$(document).on("click", ".edit_submit_button" , function() {
-		event.preventDefault();
-		$.ajax({
-			url: "edit_post.php",
-			type: "POST",
-			data:{ 
-				comment_id: $(this).parent().parent().parent().parent().next(".reply_board").prev(".board").attr('id') , edit_comment: $("#edit_textarea_"+ $(this).parent().parent().parent().parent().next(".reply_board").prev(".board").attr('id')).val() 
-			},
-			success: function(msg){
-				var result = $.parseJSON(msg);
-				$("#post_text_"+result[0]).html(result[1]);
-							
+				//將msg顯示到前端
+				$("#purchase_requisition_remit_infos_bank_name").val(msg["bank_name"]);
+				$("#purchase_requisition_remit_infos_bank_code").val(msg["bank_code"]);
+				$("#purchase_requisition_remit_infos_branch_bank_code").val(msg["branch_bank_code"]);
+				$("#purchase_requisition_remit_infos_account_number").val(msg["account_number"]);
 			}
 		});
 	});
-	*/
 });
 
 

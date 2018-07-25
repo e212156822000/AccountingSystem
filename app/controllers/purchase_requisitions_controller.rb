@@ -11,6 +11,7 @@ class PurchaseRequisitionsController < ApplicationController
 		@payee = set_payee_by_payee_id(@remit_info.payee_id,@remit_info.payee_type)
 		@recorder = Employee.find(@purchase_requisition.recorder_id)
 		@company = Company.find(@purchase_requisition.company_id)
+		# render :json => { :bank_name => @remit_info.bank_name , :bank_code => @remit_info.bank_code , :branch_bank_code => @remit_info.branch_bank_code, :account_number => @remit_info.account_number }
 	end
 
 	def update
@@ -20,22 +21,19 @@ class PurchaseRequisitionsController < ApplicationController
 	end
 	def create
 		if params[:recorder_id].present? && 
+		   params[:company_id].present? &&
 		   params[:purchase_requisition][:remit_infos][:name].present?
+		   	params[:purchase_requisition][:recorder_id] = params[:recorder_id]
+			params[:purchase_requisition][:company_id] = params[:company_id]
 			# 現在是用string直接去找東西，找不到會爆掉，之後要改成view可以直接傳id過來
 			set_payee_by_payee_type(params[:purchase_requisition][:remit_infos][:name],params[:payee_type])
-			#@recorder = Employee.find(params[:recorder_id])
-			@company = Company.find_by_name(params[:company_name])
-			if @payee.present? && @company.present?
+			if @payee.present?
 				@remit_info = RemitInfo.find_by_payee_id(@payee.id)
-				params[:purchase_requisition][:recorder_id] = params[:recorder_id]
-				params[:purchase_requisition][:company_id] = @company.id
 				if @remit_info.present?
 					@purchase_requisition = @remit_info.purchase_requisitions.build(purchase_requisitions_params)
 				    respond_to do |format|
 				    if @purchase_requisition.save
-				      	format.html {
-			         	   format.html { redirect_to @purchase_requisition, notice: ' was successfully created.' }
-			        	}
+				      	format.html { }
 			        	redirect_to purchase_requisitions_path, notice: @purchase_requisition.id.to_s + 'Data was successfully created.' + params[:recorder_id].to_s
 			      	else
 			      		flash[:notice] = 'Not saving!'  + @purchase_requisition.errors.full_messages.to_s
@@ -44,13 +42,13 @@ class PurchaseRequisitionsController < ApplicationController
 		      	  	end
 				end
 	    		else
-	    			flash[:notice] = 'No remit_info!'
+	    			flash[:notice] = '找到受款對象，但未新增其匯款資訊'
 	    		end
 	    	else
-    			flash[:notice] = 'no Employees or no Company. ' + params[:purchase_requisition][:remit_infos][:name]
+    			flash[:notice] = '找不到填寫的受款對象' + params[:purchase_requisition][:remit_infos][:name]
 	    	end
 		else
-			flash[:notice] = 'No filling 申請人/記錄人.'
+			flash[:notice] = '沒有填寫公司/記錄人/受款對象'
 	    end
 	    #Rails.logger.info(@purchase_requisition.errors.full_messages.inspect) 
 	end

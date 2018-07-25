@@ -10,6 +10,17 @@ class EmployeesController < ApplicationController
   # GET /employees/1
   # GET /employees/1.json
   def show
+    @remit_info = RemitInfo.find_by_payee_id(@employee.id)
+    respond_to do |format|
+      if @remit_info.present?
+        format.html { }
+        format.json do
+          render :json => { :bank_name => @remit_info.bank_name , :bank_code => @remit_info.bank_code , :branch_bank_code => @remit_info.branch_bank_code, :account_number => @remit_info.account_number }
+        end
+      else
+        format.html { }
+      end
+    end
   end
 
   # GET /employees/new

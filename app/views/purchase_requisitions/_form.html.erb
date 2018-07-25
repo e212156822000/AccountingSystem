@@ -29,7 +29,11 @@
                 t.strftime("%Y/%m/%d") %>
             </td>
             <td>
-              <%= text_field_tag :company_name, params[:company_name] ,:id=>"company_name", :placeholder => '廠商名' %>
+              <select id="company_id" name="company_id">
+                <% Company.all.each do |company| %>
+                  <option value="<%= company.id %>"><%= company.name %></option>
+                <% end %>
+              </select>
             </td>
             <td>
               <%= f.input :name ,label: false %>

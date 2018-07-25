@@ -47,13 +47,36 @@
 </p>
 
 <p>
+  <strong>記錄人:</strong>
+  <%= @recorder.name %>
+</p>
+
+
+<h4>匯款資訊</h4>
+
+<p>
   <strong>收款人:</strong>
   <%= @payee.name %>
 </p>
 
 <p>
-  <strong>記錄人:</strong>
-  <%= @recorder.name %>
+  <strong>帳戶名稱:</strong>
+  <%= @remit_info.bank_name %>
+</p>
+
+<p>
+  <strong>銀行代碼:</strong>
+  <%= @remit_info.bank_code %>
+</p>
+
+<p>
+  <strong>分行名稱:</strong>
+  <%= @remit_info.branch_bank_code %>
+</p>
+
+<p>
+  <strong>帳號:</strong>
+  <%= @remit_info.account_number %>
 </p>
 
 <%= link_to 'Back', purchase_requisitions_path %>

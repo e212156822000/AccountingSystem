@@ -1,0 +1,2 @@
+// $('#new_company').prepend('<%= @company.name %>');
+$('#new_company').prepend('<%= j( render partial: "remit_infos/show" ,locals: {payee: @company} ) %>');
