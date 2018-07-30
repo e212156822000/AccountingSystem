@@ -53,6 +53,11 @@ class PurchaseRequisitionsController < ApplicationController
 	    #Rails.logger.info(@purchase_requisition.errors.full_messages.inspect) 
 	end
 
+	def delete_all
+		purchase_requisition_ids = params[:action_form]
+		PurchaseRequisition.where(id: purchase_requisition_ids).destroy_all
+	end
+
 	private
 		# Use callbacks to share common setup or constraints between actions.
 	    def set_purchase_requisition

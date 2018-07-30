@@ -52,8 +52,12 @@ h2 {
 .below_right_div{
 	padding-bottom:26px;
 }
-
-
+#action_block{
+    padding: 40px 20px 40px 0px;
+    margin: 0 auto;
+    width: 40%;
+    text-align:center;
+}
 
 #payee_form {
 	table-layout:fixed;
@@ -68,7 +72,6 @@ h2 {
 #payment_form td, #payment_form th{
 	border: 1px solid black;
 }
-
 
 #purchase_form {
 	table-layout:fixed;

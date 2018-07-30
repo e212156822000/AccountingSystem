@@ -1,4 +1,26 @@
 $(document).ready(function(){
+	//***************** 請購單主頁 ************************//
+
+	//點了按鈕即取出checkbox中點選的id值
+	//Ａ方法是js攔截，抓好ids後，redirect url過去
+	// $('#action_btn').click(function(){
+	// 	event.preventDefault();
+	// 	if($("#action option:selected").val() == "delete"){
+	// 		var searchIDs = $(".check:checked").map(function(){
+ //    	  		return $(this).val();
+ //    		}).get();
+	// 		$("#notice").append(searchIDs);
+	// 		$(location).attr('href', '/purchase_requisitions/delete_all/')
+	// 	}
+	// });
+	//Ｂ方法是直接更改mehtod，讓rails去接params[]
+	// $("#action").change(function(){
+	// 	$("#action_form").append('<input type="hidden" value='+ $("#action option:selected").val() +' name="_method">')
+	// 	$("#action_form").attr("action" , "/purchase_requisitions/delete_all/")
+	// });
+
+	//***************** 新增請購單 ************************//
+
 	//公司、受款人的下拉選單
 	$('#recorder_id, #company_id' ).chosen({width: "100%"});
 	//全選、取消全選

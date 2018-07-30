@@ -28,8 +28,8 @@
 	  <tbody>
 	  	<% @purchase_requisitions.each do |purchase_requisition| %>
 		    <tr>
-		      <td scope="row">
-		      	<input type="checkbox" class="check">
+		      <td>
+		      	<%= check_box_tag 'purchase_requisition_ids[]', purchase_requisition.id, false, class: 'check' %>
 		      </td>
 		      <td><%= link_to purchase_requisition.id, purchase_requisition %></td>
 		      <td><%= purchase_requisition.created_at.to_date %></td>
@@ -50,4 +50,14 @@
 		<% end %>
 	  </tbody>
 	</table>
+</div>
+<div id="action_block" >
+	<%= form_for :action_form, url: delete_all_purchase_requisitions_path, method: :delete do |d| %>
+		<select id="action" name="action">
+			<option value="-1">批次管理</option>
+	        <option value="delete">刪除</option>
+	    </select>
+	    <button id="action_btn" type="submit">套用</button>
+	<% end %>
+	<!--$("#selectBox option:selected").remove();-->
 </div>
