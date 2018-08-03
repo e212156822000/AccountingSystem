@@ -51,13 +51,13 @@
 	  </tbody>
 	</table>
 </div>
-<div id="action_block" >
-	<%= form_for :action_form, url: delete_all_purchase_requisitions_path, method: :delete do |d| %>
-		<select id="action" name="action">
-			<option value="-1">批次管理</option>
-	        <option value="delete">刪除</option>
-	    </select>
-	    <button id="action_btn" type="submit">套用</button>
-	<% end %>
+<div id="action_div">
+<%= button_to('新增', new_purchase_requisition_path, :form => { :id => "new_btn"})%>
+<%= form_for :deleteIds, url: delete_all_purchase_requisitions_path, :html => { :id => "del_btn" }, method: :delete do |d| %>
+	<%= hidden_field_tag :deleteIds, params[:deleteIds] ,:id=>"deleteIds" %>
+	<%= submit_tag('刪除') %>
+<% end %>
+
 	<!--$("#selectBox option:selected").remove();-->
+</div>
 </div>

@@ -34,6 +34,8 @@ class PurchaseRequisitionsController < ApplicationController
 				    respond_to do |format|
 				    if @purchase_requisition.save
 				      	format.html { }
+				      	#寄信囉！
+				      	PurchaseRequisitionMailer.new_purchase_inform(@purchase_requisition).deliver
 			        	redirect_to purchase_requisitions_path, notice: @purchase_requisition.id.to_s + 'Data was successfully created.' + params[:recorder_id].to_s
 			      	else
 			      		flash[:notice] = 'Not saving!'  + @purchase_requisition.errors.full_messages.to_s
@@ -54,8 +56,12 @@ class PurchaseRequisitionsController < ApplicationController
 	end
 
 	def delete_all
-		purchase_requisition_ids = params[:action_form]
-		PurchaseRequisition.where(id: purchase_requisition_ids).destroy_all
+		purchase_requisition_ids = params[:deleteIds].split(",")
+		PurchaseRequisition.where(:id => purchase_requisition_ids).destroy_all
+		respond_to do |format|
+      		format.html { redirect_to purchase_requisitions_path, notice: '成功刪除編號 '+ purchase_requisition_ids.join(",") }
+      		format.json { }
+      	end
 	end
 
 	private

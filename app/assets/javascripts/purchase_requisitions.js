@@ -1,18 +1,28 @@
 $(document).ready(function(){
 	//***************** 請購單主頁 ************************//
 
+	//全選、取消全選
+	$("#checkAll").click(function () {
+	    $(".check").prop('checked', $(this).prop('checked'));
+	});
+	//勾選時時，就更改value值
+	$(".check").change(function(){
+		var deleteIDs = [];
+		$(".check:checked").map(function(){
+   	  		deleteIDs.push($(this).val());
+   		});
+   		$("#deleteIds").val(deleteIDs);
+	})
 	//點了按鈕即取出checkbox中點選的id值
 	//Ａ方法是js攔截，抓好ids後，redirect url過去
-	// $('#action_btn').click(function(){
-	// 	event.preventDefault();
-	// 	if($("#action option:selected").val() == "delete"){
-	// 		var searchIDs = $(".check:checked").map(function(){
- //    	  		return $(this).val();
- //    		}).get();
-	// 		$("#notice").append(searchIDs);
-	// 		$(location).attr('href', '/purchase_requisitions/delete_all/')
-	// 	}
-	// });
+	$('#action_btn').click(function(){
+		event.preventDefault();
+		var deleteIDs = [];
+		$(".check:checked").map(function(){
+   	  		deleteIDs.push($(this).val());
+   		});
+   		$("#deleteIds").val(deleteIDs);
+	});
 	//Ｂ方法是直接更改mehtod，讓rails去接params[]
 	// $("#action").change(function(){
 	// 	$("#action_form").append('<input type="hidden" value='+ $("#action option:selected").val() +' name="_method">')
@@ -23,10 +33,6 @@ $(document).ready(function(){
 
 	//公司、受款人的下拉選單
 	$('#recorder_id, #company_id' ).chosen({width: "100%"});
-	//全選、取消全選
-	$("#checkAll").click(function () {
-	    $(".check").prop('checked', $(this).prop('checked'));
-	});
 	//填完單價或數量就計算總金額
 	$("#purchase_requisition_unit_price").blur(function(){
 		setTotalPrice();
@@ -67,6 +73,16 @@ $(document).ready(function(){
 			}
 		});
 	});
+	//訂金欄位一開始要隱藏，選擇到「事先付款」後才顯示。
+	$("#deposit_price").hide();
+	$("#payment_term").change(function(){
+		if($("#payment_term option:selected").text() == "事先付款"){
+			$("#deposit_price").show();
+		}else{
+			$("#deposit_price").hide();
+		}
+	});
+
 });
 
 

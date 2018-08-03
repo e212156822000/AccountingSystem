@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :purchase_requisitions, :except => [:show] do
+  resources :purchase_requisitions do
   	collection do
   		delete :delete_all
     end

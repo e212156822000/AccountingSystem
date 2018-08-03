@@ -40,6 +40,8 @@ gem 'searchkick'
 gem 'simple_form'
 # dropdown list helper
 gem 'chosen-rails'
+# icons
+gem 'font-awesome-sass'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

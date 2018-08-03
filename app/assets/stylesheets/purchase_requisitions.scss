@@ -17,8 +17,22 @@ h2 {
 	margin:0 auto;
 	width: 80%;
 }
+#action_div{
+    padding: 40px 20px 40px 0px;
+    margin: 0 auto;
+    width: 40%;
+    text-align:center;
+}
+#new_btn{
+	margin: 10px;
+	display: inline-block;
+}
+#del_btn{
+	margin: 10px;	
+	display: inline-block;
+}
 
-
+//請購單_form
 .warp{
   margin: 300;
   padding: 0;
@@ -51,12 +65,6 @@ h2 {
 
 .below_right_div{
 	padding-bottom:26px;
-}
-#action_block{
-    padding: 40px 20px 40px 0px;
-    margin: 0 auto;
-    width: 40%;
-    text-align:center;
 }
 
 #payee_form {
