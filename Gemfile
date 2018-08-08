@@ -42,6 +42,8 @@ gem 'simple_form'
 gem 'chosen-rails'
 # icons
 gem 'font-awesome-sass'
+# # files
+# gem 'activestorage'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

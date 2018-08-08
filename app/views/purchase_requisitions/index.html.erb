@@ -52,7 +52,8 @@
 	</table>
 </div>
 <div id="action_div">
-<%= button_to('新增', new_purchase_requisition_path, :form => { :id => "new_btn"})%>
+<%= button_to('新增', new_purchase_requisition_path, :form => { :id => "new_btn" }, method: :get)%>
+
 <%= form_for :deleteIds, url: delete_all_purchase_requisitions_path, :html => { :id => "del_btn" }, method: :delete do |d| %>
 	<%= hidden_field_tag :deleteIds, params[:deleteIds] ,:id=>"deleteIds" %>
 	<%= submit_tag('刪除') %>

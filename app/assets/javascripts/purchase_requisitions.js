@@ -74,12 +74,15 @@ $(document).ready(function(){
 		});
 	});
 	//訂金欄位一開始要隱藏，選擇到「事先付款」後才顯示。
-	$("#deposit_price").hide();
-	$("#payment_term").change(function(){
-		if($("#payment_term option:selected").text() == "事先付款"){
-			$("#deposit_price").show();
+	$("#purchase_requisition_deposit_price").hide();
+	$("label[for='purchase_requisition_deposit_price']").hide()
+	$(".purchase_requisition_payment_term").change(function(){
+		if($(".purchase_requisition_payment_term option:selected").text() == "事先付款"){
+			$("#purchase_requisition_deposit_price").show();
+			$("label[for='purchase_requisition_deposit_price']").show()
 		}else{
-			$("#deposit_price").hide();
+			$("#purchase_requisition_deposit_price").hide();
+			$("label[for='purchase_requisition_deposit_price']").hide()
 		}
 	});
 

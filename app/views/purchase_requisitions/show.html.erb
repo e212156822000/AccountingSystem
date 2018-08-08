@@ -79,4 +79,24 @@
   <%= @remit_info.account_number %>
 </p>
 
+<p>
+  <strong>付款期限:</strong>
+  <%= @purchase_requisition.payment_due_date %>
+</p>
+
+<p>
+  <strong>付款方式:</strong>
+  <%= @payment_term %>
+</p>
+
+<p>
+  <strong>訂金:</strong>
+  <%= @purchase_requisition.deposit_price %>
+</p>
+
+<p>
+  <strong>運稅條件:</strong>
+  <%= @payment_condition %>
+</p>
+
 <%= link_to 'Back', purchase_requisitions_path %>

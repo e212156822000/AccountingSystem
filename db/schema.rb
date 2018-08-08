@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180717074259) do
+ActiveRecord::Schema.define(version: 20180806070433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "filename"
+    t.string "content_type"
+    t.binary "data"
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -29,6 +35,7 @@ ActiveRecord::Schema.define(version: 20180717074259) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
   end
 
   create_table "purchase_requisitions", force: :cascade do |t|
@@ -40,21 +47,22 @@ ActiveRecord::Schema.define(version: 20180717074259) do
     t.float "total_price"
     t.string "purchase_requisition_files"
     t.date "payment_due_date"
-    t.integer "payment_term"
-    t.integer "payment_condition"
     t.integer "process_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "remit_info_id"
     t.integer "recorder_id"
     t.integer "company_id"
+    t.float "deposit_price"
+    t.integer "payment_term"
+    t.integer "payment_condition"
   end
 
   create_table "remit_infos", force: :cascade do |t|
     t.string "bank_name"
-    t.integer "bank_code"
-    t.integer "branch_bank_code"
-    t.integer "account_number"
+    t.string "bank_code"
+    t.string "branch_bank_code"
+    t.string "account_number"
     t.integer "payee_id"
     t.string "payee_type"
   end

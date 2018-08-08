@@ -54,7 +54,7 @@
               <%= f.input :total_price ,label: false%>
             </td>
             <td>
-              <%= f.input :purchase_requisition_files ,label: false%>
+              <%= f.input :purchase_requisition_files ,as: :file,multiple: true, label: false %>
             </td>
             <td>
               <select id="recorder_id" name="recorder_id">
@@ -130,7 +130,8 @@
                       ['事先付款', '0'],
                       ['貨到付款', '1']],
                       label: false %>
-                    <!--%= f.input :deposit_price,label: false %-->
+                    <%= f.label :deposit_price, "訂金" %>
+                    <%= f.input :deposit_price,label: false %>
                   </td>
                   <td>
                     <%= f.input :payment_condition, collection: [

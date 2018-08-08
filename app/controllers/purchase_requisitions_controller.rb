@@ -11,6 +11,8 @@ class PurchaseRequisitionsController < ApplicationController
 		@payee = set_payee_by_payee_id(@remit_info.payee_id,@remit_info.payee_type)
 		@recorder = Employee.find(@purchase_requisition.recorder_id)
 		@company = Company.find(@purchase_requisition.company_id)
+		@payment_term = show_payment_term(@purchase_requisition.payment_term)
+		@payment_condition = show_payment_condition(@purchase_requisition.payment_condition)
 		# render :json => { :bank_name => @remit_info.bank_name , :bank_code => @remit_info.bank_code , :branch_bank_code => @remit_info.branch_bank_code, :account_number => @remit_info.account_number }
 	end
 
@@ -34,8 +36,15 @@ class PurchaseRequisitionsController < ApplicationController
 				    respond_to do |format|
 				    if @purchase_requisition.save
 				      	format.html { }
+				      	#請購單
+				      	# if params[:purchase_requisition_files]
+				       #  	#===== The magic is here ;)
+				       #  	params[:purchase_requisition_files].each { |attachment|
+				       #    		@purchase_requisition.attachments.create(attachment: attachment)
+				       #  	}
+				      	# end
 				      	#寄信囉！
-				      	PurchaseRequisitionMailer.new_purchase_inform(@purchase_requisition).deliver
+				      	#PurchaseRequisitionMailer.new_purchase_inform(@purchase_requisition).deliver_later
 			        	redirect_to purchase_requisitions_path, notice: @purchase_requisition.id.to_s + 'Data was successfully created.' + params[:recorder_id].to_s
 			      	else
 			      		flash[:notice] = 'Not saving!'  + @purchase_requisition.errors.full_messages.to_s
@@ -65,6 +74,30 @@ class PurchaseRequisitionsController < ApplicationController
 	end
 
 	private
+		def show_payment_term(code)
+			case code
+			when 0
+				payment_term = "事先付款"
+			when 1
+				payment_term = "貨到付款"
+			else
+				payment_term = ""
+			end
+			return payment_term
+		end
+		def show_payment_condition(code)
+			case code
+			when 0
+				payment_condition = "未稅"
+			when 1
+				payment_condition = "含稅"
+			when 2
+				payment_condition = "含稅+運費"
+			else
+				payment_condition = ""
+			end
+			return payment_condition
+		end
 		# Use callbacks to share common setup or constraints between actions.
 	    def set_purchase_requisition
 	      @purchase_requisition = PurchaseRequisition.find(params[:id])
@@ -85,6 +118,7 @@ class PurchaseRequisitionsController < ApplicationController
 	      		:remit_info_id,
 	      		:payment_due_date, 
 	      		:payment_term,
+	      		:deposit_price,
 	      		:payment_condition,
 	      		remit_infos_attributes: [:name, :bank_name, :bank_code, :branch_bank_code, :account_number]
 	      )
