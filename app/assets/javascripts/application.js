@@ -14,6 +14,7 @@
 //= require rails-ujs
 //= require turbolinks
 //= require chosen-jquery
+//= require activestorage
 //= require_tree .
 
 $(document).ready(function(){

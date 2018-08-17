@@ -17,7 +17,6 @@
             <th scope="col">單價</th>
             <th scope="col">數量</th>
             <th scope="col">金額</th>
-            <th scope="col">報價單</th>
             <th scope="col">記錄人</th>
           </tr>
         </thead>
@@ -54,9 +53,6 @@
               <%= f.input :total_price ,label: false%>
             </td>
             <td>
-              <%= f.input :purchase_requisition_files ,as: :file,multiple: true, label: false %>
-            </td>
-            <td>
               <select id="recorder_id" name="recorder_id">
                 <% Employee.all.each do |employee| %>
                   <option value="<%= employee.id %>"><%= employee.name %></option>
@@ -64,6 +60,18 @@
               </select>
             </td>
           </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="middle">
+      <table id="file_form" class="table table-hover">
+        <thead>
+          <th>報價單、請購單等</th>
+        </thead>
+        <tbody>
+          <td>
+            <%= f.input :attachments, input_html: { multiple: true ,direct_upload: true}, label: false %>
+          </td>
         </tbody>
       </table>
     </div>

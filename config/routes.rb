@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :purchase_requisitions do
   	collection do
   		delete :delete_all
+      get :sample
     end
   end
   resources :petty_cash_records

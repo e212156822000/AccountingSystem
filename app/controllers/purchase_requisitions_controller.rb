@@ -35,13 +35,8 @@ class PurchaseRequisitionsController < ApplicationController
 					@purchase_requisition = @remit_info.purchase_requisitions.build(purchase_requisitions_params)
 				    respond_to do |format|
 				    if @purchase_requisition.save
+				    	# @purchase_requisition.attachments.attach(params[:purchase_requisition][:attachments])
 				      	format.html { }
-				      	#請購單
-				      	# if params[:purchase_requisition_files]
-				       #  	#===== The magic is here ;)
-				       #  	params[:purchase_requisition_files].each { |attachment|
-				       #    		@purchase_requisition.attachments.create(attachment: attachment)
-				       #  	}
 				      	# end
 				      	#寄信囉！
 				      	#PurchaseRequisitionMailer.new_purchase_inform(@purchase_requisition).deliver_later
@@ -63,11 +58,16 @@ class PurchaseRequisitionsController < ApplicationController
 	    end
 	    #Rails.logger.info(@purchase_requisition.errors.full_messages.inspect) 
 	end
-
+	def sample
+	end
 	def delete_all
 		purchase_requisition_ids = params[:deleteIds].split(",")
-		PurchaseRequisition.where(:id => purchase_requisition_ids).destroy_all
-		respond_to do |format|
+  		@purchase_requisitions = PurchaseRequisition.where(:id => purchase_requisition_ids)
+  		@purchase_requisitions.each do |purchase_requisition|
+  			purchase_requisition.attachments.purge
+  		end
+  	  	@purchase_requisitions.destroy_all
+  		respond_to do |format|
       		format.html { redirect_to purchase_requisitions_path, notice: '成功刪除編號 '+ purchase_requisition_ids.join(",") }
       		format.json { }
       	end
@@ -111,8 +111,7 @@ class PurchaseRequisitionsController < ApplicationController
 	      		:unit, 
 	      		:unit_price, 
 	      		:amount, 
-	      		:total_price, 
-	      		:purchase_requisition_files,
+	      		:total_price,
 	      		:requisition_employees,
 	      		:recorder_id,
 	      		:remit_info_id,
@@ -120,6 +119,7 @@ class PurchaseRequisitionsController < ApplicationController
 	      		:payment_term,
 	      		:deposit_price,
 	      		:payment_condition,
+	      		attachments: [],
 	      		remit_infos_attributes: [:name, :bank_name, :bank_code, :branch_bank_code, :account_number]
 	      )
 	    end

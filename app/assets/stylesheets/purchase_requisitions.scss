@@ -49,7 +49,11 @@ h2 {
 }
 .content 
 {  
-  margin-top:20px;
+	margin-top:20px;
+}
+.middle
+{
+	margin-top:5px;
 }
 .left_div {
 	float:left;
@@ -74,10 +78,10 @@ h2 {
 	border: 1px solid black;
 }
 
-#payment_form {
+#payment_form ,#file_form {
 	table-layout:fixed;
 }
-#payment_form td, #payment_form th{
+#payment_form td, #payment_form th, #file_form{
 	border: 1px solid black;
 }
 

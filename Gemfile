@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -42,8 +42,11 @@ gem 'simple_form'
 gem 'chosen-rails'
 # icons
 gem 'font-awesome-sass'
-# # files
-# gem 'activestorage'
+# fix error
+gem 'i18n', '~> 1.0'
+# office365 api
+gem 'oauth2'
+gem 'activerecord-session_store'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

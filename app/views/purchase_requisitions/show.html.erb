@@ -42,11 +42,6 @@
 </p>
 
 <p>
-  <strong>報價單:</strong>
-  <%= @purchase_requisition.purchase_requisition_files %>
-</p>
-
-<p>
   <strong>記錄人:</strong>
   <%= @recorder.name %>
 </p>
@@ -97,6 +92,19 @@
 <p>
   <strong>運稅條件:</strong>
   <%= @payment_condition %>
+</p>
+
+<p>
+  <strong>請購單附件:</strong>
+  <% if @purchase_requisition.attachments.attached? %>
+    <% @purchase_requisition.attachments.each do |doc| %>
+      <p>
+      <%= link_to(doc.filename, rails_blob_path(doc, disposition: "attachment"),traget: :blank) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p> 無 </p>
+  <% end %>
 </p>
 
 <%= link_to 'Back', purchase_requisitions_path %>
