@@ -10,12 +10,14 @@ class CompaniesController < ApplicationController
   # GET /companies/1
   # GET /companies/1.json
   def show
-    @remit_info = RemitInfo.find_by_payee_id(@company.id)
+    # @remit_info = RemitInfo.find_by_payee_id(@company.id)
+    @remit_info = RemitInfo.find_by_sql("SELECT bank_name, bank_code, branch_bank_code, account_number FROM remit_infos WHERE payee_id = "+@company.id.to_s)
     respond_to do |format|
       if @remit_info.present?
         format.html { }
         format.json do
-          render :json => { :bank_name => @remit_info.bank_name , :bank_code => @remit_info.bank_code , :branch_bank_code => @remit_info.branch_bank_code, :account_number => @remit_info.account_number }
+          render :json => @remit_info
+          # render :json => { :bank_name => @remit_info.bank_name , :bank_code => @remit_info.bank_code , :branch_bank_code => @remit_info.branch_bank_code, :account_number => @remit_info.account_number }
         end
       else
         format.html { }

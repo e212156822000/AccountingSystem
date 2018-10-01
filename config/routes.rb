@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  get 'authorize' => 'auth#gettoken'
   resources :purchase_requisitions do
   	collection do
   		delete :delete_all
       get :sample
+      get :mail
     end
   end
   resources :petty_cash_records
@@ -11,8 +13,6 @@ Rails.application.routes.draw do
   end
   resources :companies do
   	resources :remit_infos, module: :companies
-  end
-  resources :attachments do
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

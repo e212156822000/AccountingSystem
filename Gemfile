@@ -47,6 +47,7 @@ gem 'i18n', '~> 1.0'
 # office365 api
 gem 'oauth2'
 gem 'activerecord-session_store'
+gem 'microsoft_graph'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -1,6 +1,6 @@
 class PurchaseRequisitionsController < ApplicationController
 	before_action :set_purchase_requisition, only: [:show, :edit, :update, :destroy]
-
+	include AuthHelper
 	def index
 		@purchase_requisitions = PurchaseRequisition.all
 	end
@@ -59,7 +59,25 @@ class PurchaseRequisitionsController < ApplicationController
 	    #Rails.logger.info(@purchase_requisition.errors.full_messages.inspect) 
 	end
 	def sample
+		@login_url = get_login_url
 	end
+	def mail
+		token = get_access_token
+		if token
+    	# If a token is present in the session, get messages from the inbox
+      	callback = Proc.new do |r| 
+      		r.headers['Authorization'] = "Bearer #{token}"
+      	end
+      	graph = MicrosoftGraph.new(base_url: 'https://graph.microsoft.com/v1.0',
+                                 cached_metadata_file: File.join(MicrosoftGraph::CACHED_METADATA_DIRECTORY, 'metadata_v1.0.xml'),
+                                 &callback)
+      	@messages = graph.me.mail_folders.find('inbox').messages.order_by('receivedDateTime desc')
+    	else
+    		# If no token, redirect to the root url so user
+    		# can sign in.
+    		redirect_to sample_purchase_requisitions_path
+    	end
+    end
 	def delete_all
 		purchase_requisition_ids = params[:deleteIds].split(",")
   		@purchase_requisitions = PurchaseRequisition.where(:id => purchase_requisition_ids)
