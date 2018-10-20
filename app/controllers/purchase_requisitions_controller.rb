@@ -1,4 +1,5 @@
 class PurchaseRequisitionsController < ApplicationController
+	before_action :authenticate_user!
 	before_action :set_purchase_requisition, only: [:show, :edit, :update, :destroy]
 	include AuthHelper
 	def index

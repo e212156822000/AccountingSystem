@@ -6,4 +6,7 @@ class Employee < ApplicationRecord
 	has_many :purchase_requisitions, :as => :recorder
 	# 多型關聯，payee可能是employee或company
 	has_many :remit_infos, :as => :payee
+
+	validates_uniqueness_of :name
+	validates_presence_of :name
 end

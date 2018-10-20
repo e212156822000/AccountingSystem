@@ -14,11 +14,21 @@
 	  <li><a class="active" href="#home">Home</a></li>
 	  <li><a href="#news">News</a></li>
 	  <li><a href="#contact">Contact</a></li>
-	  <li class="right"><a href="#about">Login</a></li>
+    <% if user_signed_in? %>
+      <li class="right">
+        <%= link_to('登出', destroy_user_session_path, method: :delete) %>
+      </li>
+      <% else %>
+      <li class="right">
+        <%= link_to('登入', new_user_session_path)  %>  
+      </li>
+    <% end %>
 	</ul>
 	<%= render 'layouts/sidebar' %>
 	<div class="w3-container">
-      <p id="notice"><%= notice %></p>
+<!--        <p class="notice"><%= notice %></p> -->
+       <p id="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
     	<%= yield %>
     </div>
   </body>

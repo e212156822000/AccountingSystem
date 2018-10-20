@@ -45,9 +45,13 @@ gem 'font-awesome-sass'
 # fix error
 gem 'i18n', '~> 1.0'
 # office365 api
-gem 'oauth2'
+gem 'oauth2', '~> 1.0'
 gem 'activerecord-session_store'
 gem 'microsoft_graph'
+# login helper
+gem 'devise'
+# connect office365 with devise
+gem "omniauth-office365", :github => "jeffcarbs/omniauth-office365"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
